@@ -14,6 +14,7 @@
     "build:license": "ts-node tools/license.ts > ./LICENSE",
     "build:intTest": "ts-node tools/integration-test.ts && yarn install --cwd ./tests/integration",
     "build:esmTest": "ts-node tools/esm-test.ts && yarn install --cwd ./tests/esm && ts-node tools/esm-test-package.ts",
+    "prepare": "yarn build:compile && yarn build:esm",
     "test": "yarn test:jest && yarn test:badge",
     "test:int": "yarn jest ./tests/integration",
     "test:esm": "yarn jest ./tests/esm",

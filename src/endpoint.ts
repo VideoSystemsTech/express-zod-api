@@ -32,6 +32,7 @@ export abstract class AbstractEndpoint {
     config: CommonConfig;
   }): Promise<void>;
   public abstract getDescription(variant: "short" | "long"): string | undefined;
+  public abstract getOperationId(): string | undefined;
   public abstract getMethods(): Method[];
   public abstract getInputSchema(): IOSchema;
   public abstract getOutputSchema(): IOSchema;
@@ -64,6 +65,7 @@ type EndpointProps<
   resultHandler: ResultHandlerDefinition<POS, NEG>;
   description?: string;
   shortDescription?: string;
+  operationId?: string;
 } & ({ scopes?: SCO[] } | { scope?: SCO }) &
   ({ tags?: TAG[] } | { tag?: TAG }) &
   MethodsDefinition<M>;
@@ -79,6 +81,7 @@ export class Endpoint<
   TAG extends string
 > extends AbstractEndpoint {
   protected readonly descriptions: Record<"short" | "long", string | undefined>;
+  protected readonly operationId: string | undefined;
   protected readonly methods: M[] = [];
   protected siblingMethods: Method[] = [];
   protected readonly middlewares: AnyMiddlewareDef[] = [];
@@ -98,6 +101,7 @@ export class Endpoint<
     resultHandler,
     description,
     shortDescription,
+    operationId,
     mimeTypes,
     ...rest
   }: EndpointProps<IN, OUT, OPT, M, POS, NEG, SCO, TAG>) {
@@ -119,6 +123,7 @@ export class Endpoint<
     this.handler = handler;
     this.resultHandler = resultHandler;
     this.descriptions = { long: description, short: shortDescription };
+    this.operationId = operationId;
     this.scopes = [];
     this.tags = [];
     if ("scopes" in rest && rest.scopes) {
@@ -150,6 +155,10 @@ export class Endpoint<
 
   public override getDescription(variant: "short" | "long") {
     return this.descriptions[variant];
+  }
+
+  public override getOperationId() {
+    return this.operationId;
   }
 
   public override getMethods(): M[] {

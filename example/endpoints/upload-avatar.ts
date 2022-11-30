@@ -6,6 +6,7 @@ export const uploadAvatarEndpoint = taggedEndpointsFactory.build({
   method: "post",
   tag: "files",
   description: "Handles a file upload.",
+  operationId: "uploadAvatar",
   input: z
     .object({
       avatar: z

@@ -9,6 +9,7 @@ export const retrieveUserEndpoint = taggedEndpointsFactory
     tag: "users",
     shortDescription: "Retrieves the user.",
     description: "Example user retrieval endpoint.",
+    operationId: "retrieveUser",
     input: z.object({
       id: z
         .string()

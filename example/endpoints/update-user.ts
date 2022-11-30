@@ -6,6 +6,7 @@ export const updateUserEndpoint =
     method: "post",
     tag: "users",
     description: "Changes the user record. Example user update endpoint.",
+    operationId: "updateUser",
     input: withMeta(
       z.object({
         // id is the route path param of /v1/user/:id

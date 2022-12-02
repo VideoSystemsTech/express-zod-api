@@ -64,6 +64,7 @@ paths:
                       message: Sample error message
       description: Example user retrieval endpoint.
       summary: Retrieves the user.
+      operationId: retrieveUser
       tags:
         - users
       parameters:
@@ -144,6 +145,7 @@ paths:
                       message: Sample error message
       description: Changes the user record. Example user update endpoint.
       summary: Changes the user record. Example user update endp…
+      operationId: updateUser
       tags:
         - users
       parameters:
@@ -214,6 +216,7 @@ paths:
               schema:
                 type: string
       summary: Sends a file content.
+      operationId: sendAvatar
       tags:
         - files
         - users
@@ -242,6 +245,7 @@ paths:
               schema:
                 type: string
       summary: Streams a file content.
+      operationId: streamAvatar
       tags:
         - users
         - files
@@ -326,6 +330,7 @@ paths:
                       message: Sample error message
       description: Handles a file upload.
       summary: Handles a file upload.
+      operationId: uploadAvatar
       tags:
         - files
       requestBody:

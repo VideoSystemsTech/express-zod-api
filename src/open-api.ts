@@ -105,6 +105,7 @@ export class OpenAPI extends OpenApiBuilder {
       if (shortDesc) {
         operation.summary = ensureShortDescription(shortDesc);
       }
+      operation.operationId = endpoint.getOperationId();
       if (endpoint.getTags().length > 0) {
         operation.tags = endpoint.getTags();
       }

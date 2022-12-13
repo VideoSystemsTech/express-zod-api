@@ -2,6 +2,57 @@
 
 ## Version 8
 
+### v8.5.0
+
+- Supporting Node 19.
+- `@express-zod-api/zod-to-ts` version is v1.1.6.
+- Custom errors have gotten their well deserved names matching their classes.
+  - The list of currently exposed custom errors: `OpenAPIError, DependsOnMethodError, RoutingError`.
+- Output validation errors now cause HTTP status code `500` instead of `400`.
+  - HTTP status codes `4xx` are supposed to reflect client errors (bad requests).
+  - The case when Endpoint's handler returns do not comply the Endpoint's output schema is the internal API error.
+  - Use [Typescript's strict mode](https://www.typescriptlang.org/tsconfig#strict) in order to prevent such cases
+    during the development.
+- Added [Code of Conduct](CODE_OF_CONDUCT.md).
+- Output validation error messages changed slightly in the response:
+
+```text
+// before:
+output: Invalid format; anything: Number must be greater than 0
+// after:
+output/anything: Number must be greater than 0
+```
+
+### v8.4.4
+
+- `typescript` version is 4.9.4.
+- Following the changes made in v8.4.2, I'm switching to the [forked zod-to-ts](https://github.com/RobinTail/zod-to-ts)
+  - Typescript made a regular dependency inside that fork, since it's used for code generation.
+  - `@express-zod-api/zod-to-ts` version is v1.1.5.
+  - Fixed all warnings while generating a frontend client.
+
+### v8.4.3
+
+- The regular expression used for validating `z.dateIn()` made easier
+  by [@shroudedcode](https://github.com/shroudedcode).
+
+```regexp
+# before
+/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d{3})?)?Z?$/
+# after
+/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}(\.\d+)?)?Z?$/
+```
+
+### v8.4.2
+
+- Fixing issue of inability to generate Client having Typescript 4.1-4.6.x installed.
+  - Making Typescript a regular dependency of the library (it was dev + peer).
+  - Using `typescript` version 4.9.3.
+  - This version also partially fixes the deprecation warnings in case you're using Typescript 4.9.x.
+  - The issue introduced in version 7.9.1 of the library due to changing the implementation in accordance with the
+    `typescript` upgrade to v4.8.2.
+  - The library uses Typescript's factory methods to generate the frontend client.
+
 ### v8.4.1
 
 - `openapi3-ts` version is 3.1.2.
